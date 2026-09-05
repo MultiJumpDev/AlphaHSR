@@ -1,0 +1,124 @@
+{
+  "_comment": "Relic set database. bonuses maps piece thresholds to stat bonuses using the engine stat vocabulary (same keys as gear stats). All values are the in-game numbers.",
+  "relic_sets": [
+    {
+      "id": "musketeer_of_wild_wheat",
+      "name": "Musketeer of Wild Wheat",
+      "bonuses": {
+        "2": { "stat": "atk_percent", "value": 0.12 },
+        "4": { "stat": "spd_percent", "value": 0.06, "note": "4pc: SPD +6% and Basic ATK DMG x10% (basic boost simplified away)." }
+      }
+    },
+    {
+      "id": "guard_of_wuthering_snow",
+      "name": "Guard of Wuthering Snow",
+      "bonuses": {
+        "2": { "stat": "dmg_reduction", "value": 0.08 },
+        "4": { "stat": "def_percent", "value": 0.05 }
+      }
+    },
+    {
+      "id": "hunter_of_glacial_forest",
+      "name": "Hunter of Glacial Forest",
+      "bonuses": {
+        "2": { "stat": "crit_dmg", "value": 0.16 },
+        "4": { "stat": "crit_rate", "value": 0.10, "note": "4pc: CRIT DMG +25% on ult (simplified to flat CRIT Rate)." }
+      }
+    },
+    {
+      "id": "champion_of_streetwise_boxing",
+      "name": "Champion of Streetwise Boxing",
+      "bonuses": {
+        "2": { "stat": "physical_dmg_boost", "value": 0.10 },
+        "4": { "stat": "atk_percent", "value": 0.05, "note": "4pc: ATK +5% per stack x5 (simplified flat)." }
+      }
+    },
+    {
+      "id": "band_of_sizzling_thunder",
+      "name": "Band of Sizzling Thunder",
+      "bonuses": {
+        "2": { "stat": "lightning_dmg_boost", "value": 0.10 },
+        "4": { "stat": "atk_percent", "value": 0.20, "note": "4pc: ATK +20% when using skill (simplified constant)." }
+      }
+    },
+    {
+      "id": "eagle_of_twilight_line",
+      "name": "Eagle of Twilight Line",
+      "bonuses": {
+        "2": { "stat": "wind_dmg_boost", "value": 0.10 },
+        "4": { "stat": "energy_regen", "value": 0.0, "note": "4pc: advance action after ult; represented as +0 wind bonus only (hook TODO)." }
+      }
+    },
+    {
+      "id": "fleet_of_the_ageless",
+      "name": "Fleet of the Ageless",
+      "bonuses": {
+        "2": { "stat": "max_hp_percent", "value": 0.12 }
+      }
+    },
+    {
+      "id": "space_sealing_station",
+      "name": "Space Sealing Station",
+      "bonuses": {
+        "2": { "stat": "atk_percent", "value": 0.12 }
+      }
+    },
+    {
+      "id": "belobog_of_the_architects",
+      "name": "Belobog of the Architects",
+      "bonuses": {
+        "2": { "stat": "def_percent", "value": 0.15 }
+      }
+    },
+    {
+      "id": "inert_salsotto",
+      "name": "Inert Salsotto",
+      "bonuses": {
+        "2": { "stat": "crit_rate", "value": 0.08 }
+      }
+    },
+    {
+      "id": "broken_keel",
+      "name": "Broken Keel",
+      "bonuses": {
+        "2": { "stat": "effect_res", "value": 0.10 }
+      }
+    },
+    {
+      "id": "prisoner_in_deep_confinement",
+      "name": "Prisoner in Deep Confinement",
+      "bonuses": {
+        "2": { "stat": "dot_vuln_src", "value": 0.0, "note": "2pc: DoT effect on hit (attacker-side DoT boost simplified to 0; use wound 12pc instead)." },
+        "4": { "stat": "atk_percent", "value": 0.12 }
+      }
+    },
+    {
+      "id": "wastelander_of_bandy_dunes",
+      "name": "Wastelander of Banditry Desert",
+      "bonuses": {
+        "2": { "stat": "imaginary_dmg_boost", "value": 0.10 }
+      }
+    },
+    {
+      "id": "genius_of_brilliant_stars",
+      "name": "Genius of Brilliant Stars",
+      "bonuses": {
+        "2": { "stat": "quantum_dmg_boost", "value": 0.10 }
+      }
+    },
+    {
+      "id": "fire_forged_boots",
+      "name": "Fiery Fire-Forged Boots (Firesmith)",
+      "bonuses": {
+        "2": { "stat": "fire_dmg_boost", "value": 0.10 }
+      }
+    },
+    {
+      "id": "passerby_of_wandering_cloud",
+      "name": "Passerby of Wandering Cloud",
+      "bonuses": {
+        "2": { "stat": "healing_boost", "value": 0.10 }
+      }
+    }
+  ]
+}

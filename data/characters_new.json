@@ -1,0 +1,149 @@
+{
+  "_comment": "Roster expansion pack: 12 additional characters completing all paths and elements. Stats are Lv.80 reference values; multipliers are fully-leveled. Uses the extended effect vocabulary (energy_to_target, follow_up, def_debuff, res_debuff, dot_boost, execute_bonus, burst_extra, revive_heal, spd_buff_flat).",
+  "characters": [
+    {
+      "id": "serval",
+      "name": "Serval",
+      "rarity": 4,
+      "element": "Lightning",
+      "path": "Erudition",
+      "stats": { "max_hp": 3087, "atk": 640, "def": 460, "spd": 102, "crit_rate": 0.05, "crit_dmg": 1.0, "energy_max": 100, "taunt": 100 },
+      "basic": { "name": "Roaming Spark", "targets": "single", "mult": 1.0, "toughness": 30, "energy_gain": 20 },
+      "skill": { "name": "Lightning Flash", "targets": "single", "mult": 1.4, "toughness": 60, "energy_gain": 30, "effects": [ { "kind": "apply_dot", "name": "Shock", "stat": "shock", "value": 1.0, "duration_turns": 2, "chance": 1.0 } ] },
+      "ultimate": { "name": "Here Comes the Mechanical Fever", "targets": "aoe", "mult": 1.32, "toughness": 90, "energy_gain": 5, "effects": [ { "kind": "dot_boost", "value": 0.11, "duration_turns": 2 } ] },
+      "talent": { "name": "Rise, Exo-Gun", "kind": "passive", "notes": "Basic ATK deals Shock-splash (simplified: skill applies Shock directly)." }
+    },
+    {
+      "id": "pela",
+      "name": "Pela",
+      "rarity": 4,
+      "element": "Ice",
+      "path": "Nihility",
+      "stats": { "max_hp": 2980, "atk": 582, "def": 460, "spd": 105, "crit_rate": 0.05, "crit_dmg": 1.0, "energy_max": 110, "taunt": 100 },
+      "basic": { "name": "Frost Shot", "targets": "single", "mult": 1.0, "toughness": 30, "energy_gain": 20 },
+      "skill": { "name": "Frostbite", "targets": "single", "mult": 1.04, "toughness": 60, "energy_gain": 30, "effects": [ { "kind": "dispel_buff", "on": "target" }, { "kind": "def_debuff", "value": 0.28, "duration_turns": 2, "chance": 1.0 } ] },
+      "ultimate": { "name": "Zone Suppression", "targets": "aoe", "mult": 1.2, "toughness": 90, "energy_gain": 5, "effects": [ { "kind": "res_debuff", "value": 0.12, "duration_turns": 2, "chance": 1.0 } ] },
+      "talent": { "name": "Data Collecting", "kind": "passive", "energy_on_debuff": 5 }
+    },
+    {
+      "id": "herta",
+      "name": "Herta",
+      "rarity": 4,
+      "element": "Ice",
+      "path": "Erudition",
+      "stats": { "max_hp": 3087, "atk": 640, "def": 460, "spd": 103, "crit_rate": 0.05, "crit_dmg": 1.0, "energy_max": 110, "taunt": 100 },
+      "basic": { "name": "One-Time Offer", "targets": "single", "mult": 1.0, "toughness": 30, "energy_gain": 20 },
+      "skill": { "name": "Elevator for the Worthy", "targets": "aoe", "mult": 0.55, "toughness": 60, "energy_gain": 30 },
+      "ultimate": { "name": "It's Magic, I Added Some Magic", "targets": "aoe", "mult": 1.5, "toughness": 90, "energy_gain": 5 },
+      "talent": { "name": "Yes, I'm a Genius", "kind": "fua", "trigger": "enemy_below_half", "mult": 0.88, "targets": "single", "toughness": 30, "energy_gain": 5, "per_turn_limit": 1 }
+    },
+    {
+      "id": "hanya",
+      "name": "Hanya",
+      "rarity": 4,
+      "element": "Physical",
+      "path": "Harmony",
+      "stats": { "max_hp": 3087, "atk": 582, "def": 460, "spd": 110, "crit_rate": 0.05, "crit_dmg": 1.0, "energy_max": 140, "taunt": 100 },
+      "basic": { "name": "Warded Blade", "targets": "single", "mult": 1.0, "toughness": 30, "energy_gain": 20 },
+      "skill": { "name": "Attestation of Vigil", "targets": "ally_single", "mult": 0, "toughness": 0, "energy_gain": 30, "effects": [ { "kind": "buff", "stat": "atk_percent", "value": 0.36, "duration_turns": 2, "on": "ally_target" }, { "kind": "spd_buff_flat", "value": 12, "duration_turns": 2, "on": "ally_target" } ] },
+      "ultimate": { "name": "Ten-Lords' Decree, All Shall Obey", "targets": "ally_single", "mult": 0, "toughness": 0, "energy_gain": 5, "effects": [ { "kind": "buff", "stat": "crit_dmg", "value": 0.24, "duration_turns": 2, "on": "ally_target" }, { "kind": "energy_to_target", "value": 20, "on": "ally_target" } ] },
+      "talent": { "name": "Sanction Round", "kind": "passive", "skill_point_on_ult": 2 }
+    },
+    {
+      "id": "astamatek",
+      "name": "Asta",
+      "rarity": 4,
+      "element": "Fire",
+      "path": "Harmony",
+      "stats": { "max_hp": 2980, "atk": 582, "def": 460, "spd": 104, "crit_rate": 0.05, "crit_dmg": 1.0, "energy_max": 120, "taunt": 100 },
+      "basic": { "name": "Meteor Stampede", "targets": "single", "mult": 1.0, "toughness": 30, "energy_gain": 20 },
+      "skill": { "name": "Meteor Storm", "targets": "bounce", "mult": 0.5, "hits": 5, "toughness": 60, "energy_gain": 30 },
+      "ultimate": { "name": "Astral Blessing", "targets": "allies", "mult": 0, "toughness": 0, "energy_gain": 5, "effects": [ { "kind": "spd_buff_flat", "value": 50, "duration_turns": 2, "on": "allies" } ] },
+      "talent": { "name": "Astral Flare", "kind": "passive", "atk_flat_per_hit": 24, "stack_max": 5 }
+    },
+    {
+      "id": "sushang",
+      "name": "Sushang",
+      "rarity": 4,
+      "element": "Physical",
+      "path": "The Hunt",
+      "stats": { "max_hp": 3087, "atk": 640, "def": 460, "spd": 105, "crit_rate": 0.05, "crit_dmg": 1.0, "energy_max": 120, "taunt": 100 },
+      "basic": { "name": "Falcon Flurry", "targets": "single", "mult": 1.0, "toughness": 30, "energy_gain": 20 },
+      "skill": { "name": "Shape of Taixu: Nurse's Joy", "targets": "single", "mult": 2.32, "toughness": 60, "energy_gain": 30, "effects": [ { "kind": "spd_buff_flat", "value": 20, "duration_turns": 2, "on": "self" } ] },
+      "ultimate": { "name": "Shape of Taixu: Dawn Herald", "targets": "single", "mult": 3.6, "toughness": 90, "energy_gain": 5, "effects": [ { "kind": "execute_bonus", "threshold": 0.5, "mult": 0.9 } ] },
+      "talent": { "name": "Dancing Blade", "kind": "passive", "spd_on_break": 0.15 }
+    },
+    {
+      "id": "natasha",
+      "name": "Natasha",
+      "rarity": 4,
+      "element": "Physical",
+      "path": "Abundance",
+      "stats": { "max_hp": 3372, "atk": 529, "def": 460, "spd": 101, "crit_rate": 0.05, "crit_dmg": 1.0, "energy_max": 90, "taunt": 100 },
+      "basic": { "name": "Behind the Kindness", "targets": "single", "mult": 1.0, "toughness": 30, "energy_gain": 20 },
+      "skill": { "name": "Love, Heal, and Choose", "targets": "ally_heal", "heal_pct": 0.35, "toughness": 0, "energy_gain": 30 },
+      "ultimate": { "name": "Gift of Rebirth", "targets": "allies", "mult": 0, "toughness": 0, "energy_gain": 5, "effects": [ { "kind": "allies_heal", "value": 0.12 } ] },
+      "talent": { "name": "Hustle and Bustle", "kind": "passive", "heal_dot_on_ult": true }
+    },
+    {
+      "id": "bailu",
+      "name": "Bailu",
+      "rarity": 5,
+      "element": "Lightning",
+      "path": "Abundance",
+      "stats": { "max_hp": 3457, "atk": 640, "def": 460, "spd": 98, "crit_rate": 0.05, "crit_dmg": 1.0, "energy_max": 100, "taunt": 100 },
+      "basic": { "name": "Diagnostic Kick", "targets": "single", "mult": 1.0, "toughness": 30, "energy_gain": 20 },
+      "skill": { "name": "Leaping Lightning", "targets": "ally_heal", "heal_pct": 0.34, "toughness": 0, "energy_gain": 30, "effects": [ { "kind": "heal_target", "value": 0.08, "scale": "max_hp", "on": "allies" } ] },
+      "ultimate": { "name": "Felicitous Thunderleap", "targets": "allies", "mult": 0, "toughness": 0, "energy_gain": 5, "effects": [ { "kind": "allies_heal", "value": 0.14 } ] },
+      "talent": { "name": "Gaining Enlightenment", "kind": "revive", "value": 0.5, "revive_heal": { "kind": "revive_heal", "value": 0.5 } }
+    },
+    {
+      "id": "gepard",
+      "name": "Gepard",
+      "rarity": 5,
+      "element": "Ice",
+      "path": "Preservation",
+      "stats": { "max_hp": 3300, "atk": 582, "def": 640, "spd": 97, "crit_rate": 0.05, "crit_dmg": 1.0, "energy_max": 100, "taunt": 125 },
+      "basic": { "name": "Fist of Conviction", "targets": "single", "mult": 1.0, "toughness": 30, "energy_gain": 20 },
+      "skill": { "name": "Muffling Longhowl", "targets": "single", "mult": 1.35, "toughness": 60, "energy_gain": 30 },
+      "ultimate": { "name": "Enduring Bulwark", "targets": "allies", "mult": 0, "toughness": 0, "energy_gain": 5, "effects": [ { "kind": "ally_shield_all", "value": 0.36, "scale": "def" } ] },
+      "talent": { "name": "Guardian of Belobog", "kind": "passive", "revive_once": true }
+    },
+    {
+      "id": "welt",
+      "name": "Welt",
+      "rarity": 5,
+      "element": "Imaginary",
+      "path": "Nihility",
+      "stats": { "max_hp": 3300, "atk": 677, "def": 460, "spd": 100, "crit_rate": 0.05, "crit_dmg": 1.0, "energy_max": 120, "taunt": 100 },
+      "basic": { "name": "Gravity Matrix", "targets": "single", "mult": 1.0, "toughness": 30, "energy_gain": 20 },
+      "skill": { "name": "Edge of the Void", "targets": "blast", "mult": 1.2, "adjacent_ratio": 0.6, "toughness": 60, "energy_gain": 30, "effects": [ { "kind": "delay", "value": 0.1, "on": "target" } ] },
+      "ultimate": { "name": "Synthetic Black Hole", "targets": "aoe", "mult": 1.5, "toughness": 90, "energy_gain": 5, "effects": [ { "kind": "delay", "value": 0.33, "on": "enemies" } ] },
+      "talent": { "name": "Time Lag", "kind": "passive", "delay_on_skill_hit": 0.1 }
+    },
+    {
+      "id": "argenti",
+      "name": "Argenti",
+      "rarity": 5,
+      "element": "Physical",
+      "path": "Erudition",
+      "stats": { "max_hp": 3520, "atk": 738, "def": 506, "spd": 102, "crit_rate": 0.05, "crit_dmg": 1.0, "energy_max": 180, "taunt": 100 },
+      "basic": { "name": "Cutting, Floral, Bow", "targets": "single", "mult": 1.0, "toughness": 30, "energy_gain": 20 },
+      "skill": { "name": "Honesty, Countdown of Tribute", "targets": "aoe", "mult": 0.99, "toughness": 60, "energy_gain": 30 },
+      "ultimate": { "name": "For In This Garden, Supreme Beauty Bestows", "targets": "aoe", "mult": 2.4, "toughness": 180, "energy_gain": 5, "effects": [ { "kind": "burst_extra", "max_enemies": 2, "mult": 1.35, "targets": "aoe" } ] },
+      "talent": { "name": "Blossom of Rebirth", "kind": "passive", "energy_on_hit_taken": 3 }
+    },
+    {
+      "id": "yanqing",
+      "name": "Yanqing",
+      "rarity": 5,
+      "element": "Ice",
+      "path": "The Hunt",
+      "stats": { "max_hp": 3169, "atk": 677, "def": 460, "spd": 110, "crit_rate": 0.05, "crit_dmg": 1.0, "energy_max": 140, "taunt": 100 },
+      "basic": { "name": "Frost Thorn", "targets": "single", "mult": 1.0, "toughness": 30, "energy_gain": 20 },
+      "skill": { "name": "Soulsteel Sync", "targets": "single", "mult": 2.2, "toughness": 60, "energy_gain": 30, "effects": [ { "kind": "buff", "stat": "crit_rate", "value": 0.2, "duration_turns": 2, "on": "self" } ] },
+      "ultimate": { "name": "Amidst the Raining Bliss", "targets": "single", "mult": 3.5, "toughness": 90, "energy_gain": 5, "effects": [ { "kind": "follow_up", "targets": "single", "mult": 0.5, "toughness": 30 } ] },
+      "talent": { "name": "Sword Champion", "kind": "fua", "trigger": "after_ally_attack", "mult": 0.5, "targets": "single", "toughness": 30, "energy_gain": 10, "per_turn_limit": 1, "chance": 0.5 }
+    }
+  ]
+}

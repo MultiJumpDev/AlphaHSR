@@ -1,0 +1,77 @@
+{
+  "_comment": "Light Cone database. base_stats are Lv.80 reference values. Passives are simplified to the engine's two kinds (battle_start_buff, energy_flat_start) with exact S1->S5 ranges from the wiki; the original in-game text is cited in 'note'. Add kinds freely - cone_passives() surfaces unknown kinds for review.",
+  "light_cones": [
+    {
+      "id": "swordplay",
+      "name": "Swordplay",
+      "rarity": 4,
+      "path": "The Hunt",
+      "base_stats": { "hp": 952, "atk": 476, "def": 396 },
+      "passive": { "kind": "battle_start_buff", "stat": "dmg_boost", "value": 0.08, "value_s5": 0.16,
+                   "note": "Gains DMG dealt increase for each turn (simplified: flat at battle start)." }
+    },
+    {
+      "id": "sleep_like_the_dead",
+      "name": "Sleep Like the Dead",
+      "rarity": 5,
+      "path": "Destruction",
+      "base_stats": { "hp": 1164, "atk": 582, "def": 396 },
+      "passive": { "kind": "battle_start_buff", "stat": "crit_rate", "value": 0.18, "value_s5": 0.30,
+                   "note": "CRIT Rate +18-30% (simplified constant, no conditional reset)." }
+    },
+    {
+      "id": "cruising_in_the_stellar_sea",
+      "name": "Cruising in the Stellar Sea",
+      "rarity": 5,
+      "path": "The Hunt",
+      "base_stats": { "hp": 1058, "atk": 529, "def": 463 },
+      "passive": { "kind": "battle_start_buff", "stat": "crit_rate", "value": 0.08, "value_s5": 0.16,
+                   "note": "CRIT Rate +8-16% (constant part only; vs-HP part omitted)." }
+    },
+    {
+      "id": "today_is_another_peaceful_day",
+      "name": "Today Is Another Peaceful Day",
+      "rarity": 4,
+      "path": "Harmony",
+      "base_stats": { "hp": 1058, "atk": 423, "def": 396 },
+      "passive": { "kind": "energy_flat_start", "value": 16, "value_s5": 32,
+                   "note": "After entering battle, regenerates 16-32 Energy." }
+    },
+    {
+      "id": "meshing_cogs",
+      "name": "Meshing Cogs",
+      "rarity": 3,
+      "path": "Harmony",
+      "base_stats": { "hp": 740, "atk": 344, "def": 308 },
+      "passive": { "kind": "energy_flat_start", "value": 6, "value_s5": 12,
+                   "note": "Regenerates 6-12 Energy upon entering battle (simplified)." }
+    },
+    {
+      "id": "the_day_the_cosmos_fell",
+      "name": "The Day The Cosmos Fell",
+      "rarity": 5,
+      "path": "Destruction",
+      "base_stats": { "hp": 1270, "atk": 582, "def": 396 },
+      "passive": { "kind": "battle_start_buff", "stat": "atk_percent", "value": 0.08, "value_s5": 0.16,
+                   "note": "ATK +8-16% (constant part only)." }
+    },
+    {
+      "id": "fine_fruit",
+      "name": "Fine Fruit",
+      "rarity": 3,
+      "path": "Abundance",
+      "base_stats": { "hp": 846, "atk": 317, "def": 346 },
+      "passive": { "kind": "battle_start_buff", "stat": "healing_boost", "value": 0.08, "value_s5": 0.16,
+                   "note": "Outgoing Healing +8-16% (constant part)." }
+    },
+    {
+      "id": "trend_of_the_universal_market",
+      "name": "Trend of the Universal Market",
+      "rarity": 4,
+      "path": "Preservation",
+      "base_stats": { "hp": 1058, "atk": 370, "def": 463 },
+      "passive": { "kind": "battle_start_buff", "stat": "def_percent", "value": 0.16, "value_s5": 0.32,
+                   "note": "DEF +16-32% (constant part; DoT-on-attacker part omitted)." }
+    }
+  ]
+}

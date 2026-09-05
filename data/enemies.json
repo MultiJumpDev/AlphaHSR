@@ -1,0 +1,341 @@
+{
+  "_comment": "Honkai: Star Rail enemy database. HP values are Lv.80 reference values matching in-game magnitudes. Bosses get phases: each entry in 'phases' is a wave with its own HP; entering a new phase immediately takes action (Speed wiki). Elite/boss flags affect Break debuffs (Bleed/Wind Shear variants).",
+  "enemies": [
+    {
+      "id": "blaze_out_of_space",
+      "name": "Blaze Out of Space",
+      "category": "normal",
+      "element": "Fire",
+      "stats": { "max_hp": 22000, "atk": 700, "def": null, "spd": 132, "crit_rate": 0.05, "crit_dmg": 1.0, "energy_max": 0, "taunt": 100 },
+      "weaknesses": ["Physical", "Fire", "Quantum"],
+      "toughness": 60,
+      "actions": [
+        { "name": "Strike", "targets": "single", "mult": 1.0, "energy_steal": 0 },
+        { "name": "Melt Attack", "targets": "aoe", "mult": 0.6, "weight": 0.3 }
+      ],
+      "notes": "Standard Normal enemy."
+    },
+    {
+      "id": "incineration_beast",
+      "name": "Incineration Beast",
+      "category": "normal",
+      "element": "Fire",
+      "stats": { "max_hp": 18000, "atk": 680, "def": null, "spd": 128, "crit_rate": 0.05, "crit_dmg": 1.0, "energy_max": 0, "taunt": 100 },
+      "weaknesses": ["Ice", "Quantum", "Imaginary"],
+      "toughness": 60,
+      "actions": [
+        { "name": "Flame Charge", "targets": "single", "mult": 1.0 },
+        { "name": "Scorching Sweep", "targets": "aoe", "mult": 0.65, "weight": 0.3 }
+      ]
+    },
+    {
+      "id": "automaton_grizzly",
+      "name": "Automaton Grizzly",
+      "category": "normal",
+      "element": "Lightning",
+      "stats": { "max_hp": 24000, "atk": 720, "def": null, "spd": 126, "crit_rate": 0.05, "crit_dmg": 1.0, "energy_max": 0, "taunt": 100 },
+      "weaknesses": ["Fire", "Lightning", "Wind"],
+      "toughness": 60,
+      "actions": [
+        { "name": "Charging Smash", "targets": "single", "mult": 1.1 },
+        { "name": "Volatile Burst", "targets": "aoe", "mult": 0.6, "weight": 0.3 }
+      ]
+    },
+    {
+      "id": "silvermane_lieutenant",
+      "name": "Silvermane Lieutenant",
+      "category": "elite",
+      "element": "Ice",
+      "stats": { "max_hp": 95000, "atk": 800, "def": null, "spd": 132, "crit_rate": 0.05, "crit_dmg": 1.0, "energy_max": 0, "taunt": 100 },
+      "weaknesses": ["Fire", "Lightning", "Imaginary"],
+      "toughness": 120,
+      "actions": [
+        { "name": "Frost Slam", "targets": "single", "mult": 1.0 },
+        { "name": "Freeze Lance", "targets": "blast", "mult": 0.9, "weight": 0.3 },
+        { "name": "Shield Charge", "targets": "self", "kind": "buff_def", "value": 0.2, "duration_turns": 2, "weight": 0.25 }
+      ],
+      "notes": "Elite: Bleed cap variant and 3 Wind Shear stacks on Wind breaks."
+    },
+    {
+      "id": "aurumaton_gatekeeper",
+      "name": "Aurumaton Gatekeeper",
+      "category": "elite",
+      "element": "Imaginary",
+      "stats": { "max_hp": 105000, "atk": 820, "def": null, "spd": 130, "crit_rate": 0.05, "crit_dmg": 1.0, "energy_max": 0, "taunt": 100 },
+      "weaknesses": ["Wind", "Lightning", "Quantum"],
+      "toughness": 150,
+      "actions": [
+        { "name": "Golden Gavel", "targets": "single", "mult": 1.0 },
+        { "name": "Sentence: AoE", "targets": "aoe", "mult": 0.7, "weight": 0.3 },
+        { "name": "Imprisoning Decree", "targets": "single", "kind": "imprison", "value": 0.2, "duration_turns": 1, "weight": 0.2 }
+      ]
+    },
+    {
+      "id": "stargazer_navalia",
+      "name": "Stargazer (Navalia Astralprite)",
+      "category": "normal",
+      "element": "Quantum",
+      "stats": { "max_hp": 20000, "atk": 690, "def": null, "spd": 134, "crit_rate": 0.05, "crit_dmg": 1.0, "energy_max": 0, "taunt": 100 },
+      "weaknesses": ["Physical", "Ice", "Fire"],
+      "toughness": 60,
+      "actions": [
+        { "name": "Star Scratch", "targets": "single", "mult": 1.0 },
+        { "name": "Meteor Shower", "targets": "aoe", "mult": 0.6, "weight": 0.3 }
+      ]
+    },
+    {
+      "id": "sanctus_tractoris_boss",
+      "name": "Sanctus Tractoris (Memory Zone Meme 'Something Unto Death')",
+      "category": "boss",
+      "element": "Imaginary",
+      "stats": { "max_hp": 320000, "atk": 900, "def": null, "spd": 132, "crit_rate": 0.05, "crit_dmg": 1.0, "energy_max": 0, "taunt": 100 },
+      "weaknesses": ["Fire", "Lightning", "Wind"],
+      "toughness": 270,
+      "phases": 2,
+      "actions": [
+        { "name": "Severing Shadowclaw", "targets": "single", "mult": 1.0 },
+        { "name": "Entropy Flood", "targets": "aoe", "mult": 0.75, "weight": 0.35 },
+        { "name": "Summation of All Fears", "targets": "blast", "mult": 1.0, "weight": 0.2 }
+      ],
+      "notes": "Boss: 2 phases; phase transition = full heal of toughness + immediate action. Weakness Break on the final layer applies Break debuffs; Bleed uses the elite formula."
+    },
+    {
+      "id": "argenti_boss",
+      "name": "Argenti (Knight of Beauty)",
+      "category": "boss",
+      "element": "Physical",
+      "stats": { "max_hp": 300000, "atx": null, "atk": 880, "def": null, "spd": 130, "crit_rate": 0.05, "crit_dmg": 1.0, "energy_max": 0, "taunt": 100 },
+      "weaknesses": ["Fire", "Ice", "Quantum"],
+      "toughness": 240,
+      "phases": 2,
+      "actions": [
+        { "name": "Skewer of the Knight", "targets": "single", "mult": 1.0 },
+        { "name": "Gospel of the Beauty", "targets": "aoe", "mult": 0.7, "weight": 0.35 },
+        { "name": "Blessing: Rose Bud", "targets": "self", "kind": "buff_atk", "value": 0.2, "duration_turns": 2, "weight": 0.2 }
+      ]
+    },
+    {
+      "id": "dreamjolt_horse",
+      "name": "Dreamjolt Troupe's Sweet Gorilla",
+      "category": "normal",
+      "element": "Physical",
+      "stats": { "max_hp": 21000, "atk": 700, "def": null, "spd": 130, "crit_rate": 0.05, "crit_dmg": 1.0, "energy_max": 0, "taunt": 100 },
+      "weaknesses": ["Fire", "Ice", "Imaginary"],
+      "toughness": 60,
+      "actions": [
+        { "name": "Heavy Haymaker", "targets": "single", "mult": 1.05 },
+        { "name": "Sugar Rush", "targets": "aoe", "mult": 0.6, "weight": 0.3 }
+      ]
+    },
+    {
+      "id": "aurumatron_goldengear",
+      "name": "Aurumatron Goldengear",
+      "category": "elite",
+      "element": "Lightning",
+      "stats": { "max_hp": 98000, "atk": 810, "def": null, "spd": 131, "crit_rate": 0.05, "crit_dmg": 1.0, "energy_max": 0, "taunt": 100 },
+      "weaknesses": ["Physical", "Fire", "Quantum"],
+      "toughness": 140,
+      "actions": [
+        { "name": "Coin Shot", "targets": "single", "mult": 1.0 },
+        { "name": "Golden Bulwark", "targets": "self", "kind": "buff_def", "value": 0.25, "duration_turns": 2, "weight": 0.25 }
+      ]
+    },
+    {
+      "id": "shadow_of_feixiao",
+      "name": "Shadow of 'Feixiao' (Apocalyptic Shadow)",
+      "category": "boss",
+      "element": "Wind",
+      "stats": { "max_hp": 310000, "atk": 900, "def": null, "spd": 135, "crit_rate": 0.05, "crit_dmg": 1.0, "energy_max": 0, "taunt": 100 },
+      "weaknesses": ["Ice", "Lightning", "Imaginary"],
+      "toughness": 260,
+      "phases": 2,
+      "actions": [
+        { "name": "Boltsunder Rang", "targets": "single", "mult": 1.05 },
+        { "name": "Stormfeather Assault", "targets": "aoe", "mult": 0.72, "weight": 0.35 },
+        { "name": "Waraxe Skyward", "targets": "blast", "mult": 1.0, "weight": 0.2 }
+      ]
+    },
+    {
+      "id": "topaz_boss",
+      "name": "Topaz & Numby (Warhead elite duel)",
+      "category": "boss",
+      "element": "Fire",
+      "stats": { "max_hp": 295000, "atk": 870, "def": null, "spd": 133, "crit_rate": 0.05, "crit_dmg": 1.0, "energy_max": 0, "taunt": 100 },
+      "weaknesses": ["Physical", "Lightning", "Wind"],
+      "toughness": 250,
+      "phases": 2,
+      "actions": [
+        { "name": "Numby Sniff", "targets": "single", "mult": 1.0 },
+        { "name": "Debt Collection", "targets": "aoe", "mult": 0.7, "weight": 0.35 },
+        { "name": "Turbo Trust", "targets": "single", "kind": "imprison", "value": 0.25, "duration_turns": 1, "weight": 0.15 }
+      ]
+    },
+    {
+      "id": "cocolia_boss",
+      "name": "Cocolia, Mother of Deception",
+      "category": "boss",
+      "element": "Ice",
+      "stats": { "max_hp": 280000, "atk": 860, "def": null, "spd": 128, "crit_rate": 0.05, "crit_dmg": 1.0, "energy_max": 0, "taunt": 100 },
+      "weaknesses": ["Lightning", "Wind", "Imaginary"],
+      "toughness": 230,
+      "phases": 2,
+      "actions": [
+        { "name": "Icicle Impale", "targets": "single", "mult": 1.0 },
+        { "name": "Winter's Verdict", "targets": "aoe", "mult": 0.75, "weight": 0.35 },
+        { "name": "Ice Storm Count", "targets": "single", "kind": "freeze", "chance": 0.5, "duration_turns": 1, "weight": 0.2 }
+      ]
+    },
+    {
+      "id": "wind_shearer",
+      "name": "Wind Shearer",
+      "category": "normal",
+      "element": "Wind",
+      "stats": { "max_hp": 19000, "atk": 660, "def": null, "spd": 135, "crit_rate": 0.05, "crit_dmg": 1.0, "energy_max": 0, "taunt": 100 },
+      "weaknesses": ["Physical", "Fire", "Imaginary"],
+      "toughness": 60,
+      "actions": [
+        { "name": "Gale Slash", "targets": "single", "mult": 0.9 },
+        { "name": "Shear Winds", "targets": "single", "kind": "dot", "dot": "Wind Shear", "stacks": 1, "duration_turns": 2, "weight": 0.4 }
+      ],
+      "notes": "Applies Wind Shear stacks outside of break."
+    },
+    {
+      "id": "thunder_drake",
+      "name": "Thunder Drake",
+      "category": "normal",
+      "element": "Lightning",
+      "stats": { "max_hp": 20000, "atk": 680, "def": null, "spd": 130, "crit_rate": 0.05, "crit_dmg": 1.0, "energy_max": 0, "taunt": 100 },
+      "weaknesses": ["Ice", "Quantum", "Wind"],
+      "toughness": 60,
+      "actions": [
+        { "name": "Storm Bite", "targets": "single", "mult": 0.95 },
+        { "name": "Chain Shock", "targets": "aoe", "mult": 0.55, "weight": 0.3 }
+      ],
+      "notes": "Lightning normal enemy."
+    },
+    {
+      "id": "void_ranger",
+      "name": "Void Ranger",
+      "category": "normal",
+      "element": "Imaginary",
+      "stats": { "max_hp": 20500, "atk": 690, "def": null, "spd": 131, "crit_rate": 0.05, "crit_dmg": 1.0, "energy_max": 0, "taunt": 100 },
+      "weaknesses": ["Physical", "Ice", "Fire"],
+      "toughness": 60,
+      "actions": [
+        { "name": "Rift Bolt", "targets": "single", "mult": 1.0 },
+        { "name": "Prison Bolt", "targets": "single", "kind": "imprison", "value": 0.1, "duration_turns": 1, "weight": 0.25 }
+      ],
+      "notes": "Can imprison (SPD down + action delay)."
+    },
+    {
+      "id": "frost_apostle",
+      "name": "Frost Apostle",
+      "category": "elite",
+      "element": "Ice",
+      "stats": { "max_hp": 90000, "atk": 790, "def": null, "spd": 129, "crit_rate": 0.05, "crit_dmg": 1.0, "energy_max": 0, "taunt": 100 },
+      "weaknesses": ["Fire", "Imaginary", "Quantum"],
+      "toughness": 120,
+      "actions": [
+        { "name": "Hoarfrost Blade", "targets": "single", "mult": 0.9 },
+        { "name": "Glacial Seal", "targets": "aoe", "mult": 0.6, "weight": 0.35 },
+        { "name": "Permafrost", "targets": "single", "kind": "freeze", "chance": 0.6, "duration_turns": 1, "weight": 0.25 }
+      ],
+      "notes": "Elite with reliable freeze pressure."
+    },
+    {
+      "id": "mara_struck_soldier",
+      "name": "Mara-Struck Soldier",
+      "category": "elite",
+      "element": "Physical",
+      "stats": { "max_hp": 92000, "atk": 800, "def": null, "spd": 127, "crit_rate": 0.05, "crit_dmg": 1.0, "energy_max": 0, "taunt": 100 },
+      "weaknesses": ["Fire", "Lightning", "Wind"],
+      "toughness": 120,
+      "actions": [
+        { "name": "Greatsword Cleave", "targets": "single", "mult": 1.0 },
+        { "name": "Blade Dance", "targets": "aoe", "mult": 0.65, "weight": 0.35 },
+        { "name": "Rallying Cry", "kind": "buff_atk", "value": 0.25, "duration_turns": 2, "weight": 0.2 }
+      ],
+      "notes": "Elite with self attack buff."
+    },
+    {
+      "id": "shadow_of_ichor",
+      "name": "Shadow of 'Ichor'",
+      "category": "boss",
+      "element": "Lightning",
+      "stats": { "max_hp": 270000, "atk": 880, "def": null, "spd": 132, "crit_rate": 0.05, "crit_dmg": 1.0, "energy_max": 0, "taunt": 100 },
+      "weaknesses": ["Fire", "Wind", "Imaginary"],
+      "toughness": 240,
+      "phases": 2,
+      "actions": [
+        { "name": "Golden Blood Spike", "targets": "single", "mult": 1.0 },
+        { "name": "Ominous Rain", "targets": "aoe", "mult": 0.7, "weight": 0.35 },
+        { "name": "Living Lightning", "targets": "single", "kind": "dot", "dot": "Shock", "value": 2.0, "duration_turns": 2, "weight": 0.25 }
+      ],
+      "notes": "Memory Zone Meme boss — shock application."
+    },
+    {
+      "id": "yanqing_boss",
+      "name": "Yanqing (Frigid Prowler)",
+      "category": "boss",
+      "element": "Ice",
+      "stats": { "max_hp": 260000, "atk": 870, "def": null, "spd": 134, "crit_rate": 0.05, "crit_dmg": 1.0, "energy_max": 0, "taunt": 100 },
+      "weaknesses": ["Fire", "Lightning", "Quantum"],
+      "toughness": 230,
+      "phases": 2,
+      "actions": [
+        { "name": "Sword Quiver", "targets": "single", "mult": 1.0 },
+        { "name": "Zephyr Blades", "targets": "aoe", "mult": 0.65, "weight": 0.3 },
+        { "name": "Call Swords", "kind": "buff_atk", "value": 0.3, "duration_turns": 2, "weight": 0.2 }
+      ],
+      "notes": "Boss duel version of the Luofu general."
+    },
+    {
+      "id": "phantylia_boss",
+      "name": "Phantylia the Undying",
+      "category": "boss",
+ "element": "Lightning",
+      "stats": { "max_hp": 330000, "atk": 910, "def": null, "spd": 133, "crit_rate": 0.05, "crit_dmg": 1.0, "energy_max": 0, "taunt": 100 },
+      "weaknesses": ["Physical", "Ice", "Wind"],
+      "toughness": 260,
+      "phases": 3,
+      "actions": [
+        { "name": "Living Aether Bloom", "targets": "single", "mult": 1.05 },
+        { "name": "Petals in Ruin", "targets": "aoe", "mult": 0.7, "weight": 0.35 },
+        { "name": "Elixir of Undying", "kind": "heal", "targets": "self", "value": 0.05, "weight": 0.15 }
+      ],
+      "notes": "3-phase lord ravager; self-heals between phases."
+    },
+    {
+      "id": "starcrusher_swan_king",
+      "name": "Starcrusher Swan King",
+      "category": "boss",
+      "element": "Physical",
+      "stats": { "max_hp": 290000, "atk": 890, "def": null, "spd": 130, "crit_rate": 0.05, "crit_dmg": 1.0, "energy_max": 0, "taunt": 100 },
+      "weaknesses": ["Fire", "Ice", "Lightning"],
+      "toughness": 250,
+      "phases": 2,
+      "actions": [
+        { "name": "Beak Crush", "targets": "single", "mult": 1.1 },
+        { "name": "Feather Storm", "targets": "aoe", "mult": 0.7, "weight": 0.35 },
+        { "name": "Molting Defense", "kind": "shield", "targets": "self", "value": 0.1, "duration_turns": 2, "weight": 0.15 }
+      ],
+      "notes": "Aventurine's carnival boss — shields itself."
+    },
+    {
+      "id": "swarm_true_sting_boss",
+      "name": "Swarm: True Sting",
+      "category": "boss",
+      "element": "Quantum",
+      "stats": { "max_hp": 305000, "atk": 895, "def": null, "spd": 132, "crit_rate": 0.05, "crit_dmg": 1.0, "energy_max": 0, "taunt": 100 },
+      "weaknesses": ["Physical", "Fire", "Ice"],
+      "toughness": 250,
+      "phases": 3,
+      "actions": [
+        { "name": "Sting Pierce", "targets": "single", "mult": 1.0 },
+        { "name": "Swarm Descent", "targets": "aoe", "mult": 0.68, "weight": 0.35 },
+        { "name": "True Sting Ovation", "targets": "single", "kind": "entangle", "value": 0.25, "duration_turns": 1, "weight": 0.2 }
+      ],
+      "notes": "Swarm Disaster final boss — entanglement."
+    }
+  ]
+}
