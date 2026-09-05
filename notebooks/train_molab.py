@@ -17,8 +17,11 @@ def _():
     # tensorboard, torch) plus huggingface_hub for the auto-export to the HF
     # Hub, and the cli-hsr package itself, with no user input.
     # Prefers `uv pip` (molab uses uv); falls back to plain pip.
+    # NOTE: `os` is imported under an alias on purpose. On molab the
+    # Hugging Face connector cell (placed upstream) already does `import os`,
+    # and marimo forbids re-importing the same module in another cell.
     import importlib.util
-    import os
+    import os as _os
     import subprocess
     import sys
 
@@ -54,13 +57,45 @@ def _():
         if not _uv_pip(*missing):  # uv first (molab), pip fallback (local)
             _pip_install(*missing)
 
-    # work from the repo root so `pip install -e .` and ./data resolve
-    _cwd = os.getcwd()
-    if not os.path.exists(os.path.join(_cwd, "pyproject.toml")):
-        _alt = os.path.dirname(_cwd)
-        if os.path.exists(os.path.join(_alt, "pyproject.toml")):
-            os.chdir(_alt)
-            print(f"[setup] cwd -> {os.getcwd()}")
+    # Work from a checkout of the repo so `pip install -e .` and ./data
+    # resolve (db.py locates data/ relative to the *source* file, so a
+    # non-editable install would break). On molab, a synced workspace mirrors
+    # ONLY this notebook file, so we clone the repository ourselves when no
+    # pyproject.toml is around.
+    _repo_url = "https://github.com/MultiJumpDev/AlphaHSR.git"
+    _repo_tgz = "https://codeload.github.com/MultiJumpDev/AlphaHSR/tar.gz/refs/heads/main"
+
+    def _find_repo_root() -> str:
+        for _cand in (_os.getcwd(), _os.path.dirname(_os.getcwd())):
+            if _os.path.exists(_os.path.join(_cand, "pyproject.toml")):
+                return _cand
+        return ""
+
+    _root = _find_repo_root()
+    if not _root:
+        _dest = _os.path.join(_os.getcwd(), "AlphaHSR")
+        if not _os.path.exists(_os.path.join(_dest, "pyproject.toml")):
+            print(f"[setup] workspace has no checkout; cloning {_repo_url}")
+            try:
+                _run(["git", "clone", "--depth", "1", _repo_url, _dest])
+            except Exception:
+                print("[setup] git unavailable, falling back to tarball download")
+                import io as _io
+                import tarfile as _tf
+                import urllib.request as _urlreq
+
+                with _urlreq.urlopen(_repo_tgz) as _resp:
+                    _buf = _io.BytesIO(_resp.read())
+                _tmp = _dest + "_tmp"
+                with _tf.open(fileobj=_buf, mode="r:gz") as _tar:
+                    _tar.extractall(_tmp)
+                _os.rename(_os.path.join(_tmp, "AlphaHSR-main"), _dest)
+                import shutil as _shutil
+
+                _shutil.rmtree(_tmp, ignore_errors=True)
+        _root = _dest
+    _os.chdir(_root)
+    print(f"[setup] cwd -> {_os.getcwd()}")
 
     _ensure("gymnasium", "stable_baselines3", "sb3_contrib", "tensorboard",
             "huggingface_hub")
