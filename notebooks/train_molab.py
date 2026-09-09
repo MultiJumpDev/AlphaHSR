@@ -17,13 +17,34 @@ def _():
     # tensorboard, torch) plus huggingface_hub for the auto-export to the HF
     # Hub, and the cli-hsr package itself, with no user input.
     # Prefers `uv pip` (molab uses uv); falls back to plain pip.
-    # NOTE: `os` is imported under an alias on purpose. On molab the
-    # Hugging Face connector cell (placed upstream) already does `import os`,
-    # and marimo forbids re-importing the same module in another cell.
+    # On molab the Hugging Face connector cell (placed upstream) already does
+    # `import os`, and marimo forbids re-importing the same module in another
+    # cell — so we import `os` under an alias here.
+    import importlib
     import importlib.util
     import os as _os
+    import shutil as _shutil
     import subprocess
     import sys
+    import tarfile as _tf
+    import urllib.request as _urlreq
+    from io import BytesIO as _io
+
+    # ---- Patch sys.path + site-packages/runtime as early as possible -------
+    # marimo resolves imports via sys.path; a freshly cloned repo under
+    # /workspace/AlphaHSR is invisible to pip-installed package caches until
+    # we inject the project root + src/ and refresh the import machinery.
+    project_root = os.path.abspath(
+        "AlphaHSR" if os.path.exists("AlphaHSR") else "."
+    )
+    src_path = os.path.join(project_root, "src")
+    for _p in (project_root, src_path):
+        if os.path.exists(_p) and _p not in sys.path:
+            sys.path.insert(0, _p)
+
+    import site
+    importlib.invalidate_caches()
+    site.main()
 
     def _has(mod: str) -> bool:
         try:
@@ -66,36 +87,32 @@ def _():
     _repo_tgz = "https://codeload.github.com/MultiJumpDev/AlphaHSR/tar.gz/refs/heads/main"
 
     def _find_repo_root() -> str:
-        for _cand in (_os.getcwd(), _os.path.dirname(_os.getcwd())):
-            if _os.path.exists(_os.path.join(_cand, "pyproject.toml")):
+        for _cand in (os.getcwd(), os.path.dirname(os.getcwd())):
+            if os.path.exists(os.path.join(_cand, "pyproject.toml")):
                 return _cand
         return ""
 
     _root = _find_repo_root()
     if not _root:
-        _dest = _os.path.join(_os.getcwd(), "AlphaHSR")
-        if not _os.path.exists(_os.path.join(_dest, "pyproject.toml")):
+        _dest = os.path.abspath("AlphaHSR")
+        if not os.path.exists(os.path.join(_dest, "pyproject.toml")):
             print(f"[setup] workspace has no checkout; cloning {_repo_url}")
             try:
                 _run(["git", "clone", "--depth", "1", _repo_url, _dest])
             except Exception:
                 print("[setup] git unavailable, falling back to tarball download")
-                import io as _io
-                import tarfile as _tf
-                import urllib.request as _urlreq
-
                 with _urlreq.urlopen(_repo_tgz) as _resp:
-                    _buf = _io.BytesIO(_resp.read())
+                    _buf = _io(_resp.read())
                 _tmp = _dest + "_tmp"
                 with _tf.open(fileobj=_buf, mode="r:gz") as _tar:
                     _tar.extractall(_tmp)
-                _os.rename(_os.path.join(_tmp, "AlphaHSR-main"), _dest)
-                import shutil as _shutil
-
+                os.rename(
+                    os.path.join(_tmp, "AlphaHSR-main"), _dest
+                )
                 _shutil.rmtree(_tmp, ignore_errors=True)
         _root = _dest
-    _os.chdir(_root)
-    print(f"[setup] cwd -> {_os.getcwd()}")
+    os.chdir(_root)
+    print(f"[setup] cwd -> {os.getcwd()}")
 
     _ensure("gymnasium", "stable_baselines3", "sb3_contrib", "tensorboard",
             "huggingface_hub")
@@ -104,16 +121,45 @@ def _():
         if not _uv_pip("torch"):
             _pip_install("torch")
 
+    # Re-run the path/runtime patch after every install step so a freshly
+    # installed editable `cli_hsr` is immediately visible to the cell that
+    # follows (marimo's DAG will only re-evaluate static dependencies; this
+    # keeps the runtime mirror consistent within this cell).
+    for _p in (os.path.abspath("AlphaHSR" if os.path.exists("AlphaHSR") else "."),
+               os.path.join(os.path.abspath(
+                   "AlphaHSR" if os.path.exists("AlphaHSR") else "."), "src")):
+        if os.path.exists(_p) and _p not in sys.path:
+            sys.path.insert(0, _p)
+    importlib.invalidate_caches()
+    site.main()
+
+    # Install cli_hsr editable with an EXPLICIT absolute path — never `pip
+    # install -e .` blind, because molab's working dir is /workspace and `.`
+    # would resolve to the wrong place once we chdir'd above.
+    _abs_root = os.path.abspath(
+        "AlphaHSR" if os.path.exists("AlphaHSR") else "."
+    )
     if _has("cli_hsr"):
         print(f"[setup] cli_hsr importable at {importlib.util.find_spec('cli_hsr').origin}")
     else:
         print("[setup] installing cli_hsr (editable) from the workspace...")
-        if not _uv_pip("-e", "."):
-            _pip_install("-e", _root)  # _root contient le chemin absolu vers le dossier AlphaHSR cloné
+        if not _uv_pip("-e", _abs_root):
+            _pip_install("-e", _abs_root)
+        # Refresh again after the editable install so the just-built entry is
+        # picked up without leaving this cell.
+        for _p in (_abs_root, os.path.join(_abs_root, "src")):
+            if os.path.exists(_p) and _p not in sys.path:
+                sys.path.insert(0, _p)
+        importlib.invalidate_caches()
+        site.main()
 
-    print("[setup] done.")
+    # Validate that cli_hsr is genuinely importable inside this cell before
+    # handing off to downstream cells. If this fails, the reactive graph
+    # should not proceed into `from cli_hsr import db`, etc.
+    import cli_hsr  # noqa: F401
     setup_ok = True
-    return (setup_ok,)
+    print(f"[setup] cli_hsr validated: {cli_hsr.__version__ if hasattr(cli_hsr, '__version__') else 'importable'}")
+    return (setup_ok,) 
 
 
 @app.cell
@@ -121,7 +167,11 @@ def _(setup_ok):
     # ---- Cell: hardware detection & environment-scaled defaults -------------
     # cuda available (e.g. molab GPU)  -> full production run
     # cpu only (local machine)         -> short dry-run
-    assert setup_ok
+    # Explicit reactive dependency on setup_ok: this cell is ordered AFTER the
+    # setup cell in marimo's DAG, so it only runs once the repo has been cloned
+    # (if missing), the editable cli_hsr install has finished, and sys.path/
+    # site-packages have been patched inside that cell.
+    _ = setup_ok
 
     import torch
 
@@ -246,10 +296,14 @@ def _(default_ckpt_freq, default_timesteps, mo):
 
 
 @app.cell
-def _(mo, team_a, team_b):
+def _(mo, setup_ok, team_a, team_b):
     # ---- Cell: environment sanity probe -------------------------------------
     # Builds HSREnv once, resets it, and verifies the masked action space and
     # Gymnasium API before any training is attempted.
+    # Reactive dependency on the setup cell: the very first import of cli_hsr
+    # (via cli_hsr.agents) only succeeds once the editable install + sys.path
+    # patch have been applied upstream.
+    _ = setup_ok
     import numpy as np
 
     from cli_hsr.agents import random_action
@@ -284,6 +338,7 @@ def _(
     device_choice,
     mo,
     run_btn,
+    setup_ok,
     team_a,
     team_b,
     timesteps_ui,
@@ -292,6 +347,11 @@ def _(
     # sb3-contrib MaskablePPO + MaskableActorCriticPolicy on HSREnv with action
     # masks, CheckpointCallback into ./checkpoints/ppo_molab/, then a final
     # registry bundle (model.zip + metadata.json).
+    #
+    # `setup_ok` is referenced (not used) so marimo's DAG waits for the setup
+    # cell to finish cloning / patching / editable-installing cli_hsr before
+    # this cell is allowed to run and trigger `from cli_hsr.rl.train import ...`.
+    _ = setup_ok
     if not run_btn.value:
         train_md = mo.md("### ▶️ Configure the run above, then click **Run training**.")
         model = bundle_path = eval_stats = None
@@ -360,14 +420,26 @@ def _(
 
 
 @app.cell
-def _(bundle_path, hf_ckpts_ui, hf_repo_ui, mo, model):
+def _(
+    bundle_path,
+    hf_ckpts_ui,
+    hf_repo_ui,
+    mo,
+    model,
+    setup_ok,  # reactive gate: HF cell waits for setup, not for training
+):
     # ---- Cell: Hugging Face Hub export (auto-upload, local fallback) --------
     # Publishes the registry bundle to a *private* HF repo whenever a repo id
-    # is set. Auth is resolved non-interactively: `HF_TOKEN` (molab Remote
-    # Storage injects it automatically) or a cached `huggingface-cli login`
+    # is set. Auth is resolved non-interactively: HF_TOKEN (molab Remote
+    # Storage injects it automatically) or a cached huggingface-cli login
     # token. Every failure mode (no repo id, no token, hub not installed,
-    # network/auth error) degrades to a warning here — the `mo.download`
+    # network/auth error) degrades to a warning here — the mo.download
     # widget below always remains the local fallback.
+    #
+    # setup_ok is referenced so this cell is ordered AFTER the setup cell in
+    # marimo's DAG; that means cli_hsr.rl.train (used for build_model_card /
+    # hf_upload_bundle) is only imported once the package is importable.
+    _ = setup_ok
     import json
 
     if model is None:
