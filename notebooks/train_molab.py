@@ -109,7 +109,7 @@ def _():
     else:
         print("[setup] installing cli_hsr (editable) from the workspace...")
         if not _uv_pip("-e", "."):
-            _pip_install("-e", ".")
+            _pip_install("-e", _root)  # _root contient le chemin absolu vers le dossier AlphaHSR cloné
 
     print("[setup] done.")
     setup_ok = True
